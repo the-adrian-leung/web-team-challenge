@@ -6,7 +6,7 @@ import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import CharacterModal from '../components/ui/character-modal'
 import { Character } from '../components/ui/character'
-import { FaUserEdit } from "react-icons/fa";
+// import { FaUserEdit } from "react-icons/fa";
 import UserModal from '../components/ui/user-modal'
 
 const GET_CHARACTERS = gql`
@@ -80,10 +80,10 @@ const InformationPage = () => {
     <Box p={4}>
       <Box className='userInfo'>
         Welcome back, {userData?.username} ({userData?.jobTitle})
-        <FaUserEdit className='profileIcon' onClick={()=>{
-          onUserModalOpen()
-        }} />
-      </Box>
+        <Button className='profileEditButton' onClick={()=>{
+            onUserModalOpen()
+          }}>Edit Profile</Button>
+        </Box>
       <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
         {data?.characters.results.map((character: Character) => (
           <Box 

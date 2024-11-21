@@ -50,10 +50,12 @@ img {
   font-weight: bold;
 }
 
-.profileIcon {
+.profileEditButton {
   float: right;
-  width: 30px;
-  margin-top: 5px;
+  width: 100px;
+  margin-top: 0px;
+  font-size: 0.7rem;
+  height: 25px;
 }
 
 .modal, .profile {
@@ -100,7 +102,7 @@ img {
 }
 
 input {
-  border: #000000 1px solid;
+  border: var(--background) 1px solid;
   display: block;
   margin: 0 auto;
   padding: 1px;
