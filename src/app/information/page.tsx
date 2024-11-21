@@ -7,7 +7,6 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import AuthModal from '../components/ui/auth-modal'
 import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { Suspense } from 'react'
 
 const GET_CHARACTERS = gql`
   query GetCharacters($page: Int!) {
@@ -62,41 +61,39 @@ export default function InformationPage() {
   if (error) return <Text>Error: {error.message}</Text>
 
   return (
-    <Suspense>
-      <Box p={4}>
-        <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
-          {data?.characters.results.map((character: { id: string; name: string; image: string; species: string; status: string }) => (
-            <Box 
-              key={character.id}
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image src={character.image} alt={character.name} />
-              <Box p={4}>
-                <Text fontWeight="bold">{character.name}</Text>
-                <Text>{character.species}</Text>
-              </Box>
+    <Box p={4}>
+      <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
+        {data?.characters.results.map((character: { id: string; name: string; image: string; species: string; status: string }) => (
+          <Box 
+            key={character.id}
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+          >
+            <Image src={character.image} alt={character.name} />
+            <Box p={4}>
+              <Text fontWeight="bold">{character.name}</Text>
+              <Text>{character.species}</Text>
             </Box>
-          ))}
-        </Grid>
-        
-        <Box mt={4}>
-          <Button
-            disabled={page === 1}
-            onClick={() => handlePageChange(page - 1)}
-          >
-            Previous
-          </Button>
-          <Button
-            ml={2}
-            onClick={() => handlePageChange(page + 1)}
-            disabled={page === data?.characters.info.pages}
-          >
-            Next
-          </Button>
-        </Box>
+          </Box>
+        ))}
+      </Grid>
+      
+      <Box mt={4}>
+        <Button
+          disabled={page === 1}
+          onClick={() => handlePageChange(page - 1)}
+        >
+          Previous
+        </Button>
+        <Button
+          ml={2}
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page === data?.characters.info.pages}
+        >
+          Next
+        </Button>
       </Box>
-    </Suspense>
+    </Box>
   )
 }

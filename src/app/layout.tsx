@@ -4,6 +4,7 @@ import { Providers } from "./providers"
 // import { Provider } from "./components/ui/provider"
 import { Footer } from "./footer"
 import "./globals.css"
+import { Suspense } from "react"
 
 const geistSans = localFont({
   src: "./fonts/PlusJakartaSans-Regular.ttf",
@@ -32,7 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>
+            {children}
+          </Suspense>
           <Footer />
         </Providers>
       </body>
