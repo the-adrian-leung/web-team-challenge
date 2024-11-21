@@ -5,6 +5,8 @@ import { useSearchParams, redirect } from 'next/navigation'
 import AuthModal from '../components/ui/auth-modal'
 import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import CharacterModal from '../components/ui/character-modal'
+import { Character } from '../Character'
 
 const GET_CHARACTERS = gql`
   query GetCharacters($page: Int!) {
@@ -19,15 +21,23 @@ const GET_CHARACTERS = gql`
         image
         species
         status
+        gender
+        origin{
+          name
+        }
+        location{
+          name
+        }
       }
     }
   }
 `
 
-export default function InformationPage() {
+const InformationPage = () => {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '1')
-  const { onClose } = useDisclosure()
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
+  const { open, onOpen, onClose } = useDisclosure()
   interface UserData {
     username: string;
     jobTitle: string;
@@ -41,8 +51,8 @@ export default function InformationPage() {
   })
 
   useEffect(() => {    
-    if (!userData) {
-      const storedUserData = localStorage.getItem('userData')
+    if (localStorage && !userData) {
+      const storedUserData = localStorage?.getItem('userData')
       if(storedUserData) setUserData(JSON.parse(storedUserData))
     }
   }, [userData])
@@ -51,7 +61,12 @@ export default function InformationPage() {
     redirect(`/information?page=${newPage < 1 ? 1 : newPage}`)
   }
 
-  if (!localStorage.getItem('userData')) {
+  const handleCharacterClick = (character: Character) => {
+    setSelectedCharacter(character)
+    onOpen()
+  }
+
+  if (!userData) {
     return <AuthModal isOpen={true} onClose={onClose} />
   }
 
@@ -62,12 +77,14 @@ export default function InformationPage() {
     <Box p={4}>
       <Box as='h3'>Welcome back, {userData?.username} ({userData?.jobTitle})</Box>
       <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
-        {data?.characters.results.map((character: { id: string; name: string; image: string; species: string; status: string }) => (
+        {data?.characters.results.map((character: Character) => (
           <Box 
             key={character.id}
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
+            onClick={() => handleCharacterClick(character)}
+            cursor="pointer"
           >
             <Image src={character.image} alt={character.name} />
             <Box p={4}>
@@ -94,6 +111,14 @@ export default function InformationPage() {
           Next
         </Button>
       </Box>
+
+      <CharacterModal
+        character={selectedCharacter}
+        isOpen={open}
+        onClose={onClose}
+      />
     </Box>
   )
 }
+
+export default InformationPage

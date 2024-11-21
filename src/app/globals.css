@@ -4,13 +4,13 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
@@ -48,4 +48,30 @@ h3 {
   margin-bottom: 10px;
   font-family: var(--font-PJS-Bold);
   font-weight: bold;
+}
+
+.modal {
+  color: var(--background);
+  background: var(--foreground);
+}
+
+.modalHeader {
+  font-family: var(--font-PJS-Bold);
+  font-weight: bold;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.modal img {
+  width: 240px;
+  height: auto;
+  display: block;
+}
+
+.modal p {
+  text-align: left;
+  width: 240px !important;
+  display: block;
+  margin: 0 auto;
+  font-size: 1.2rem;
 }

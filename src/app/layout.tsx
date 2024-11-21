@@ -18,7 +18,7 @@ const pjsBold = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Web Team Challenge",
+  title: "The Rick and Morty Wiki",
   description: "Created by Adrian Leung",
 };
 

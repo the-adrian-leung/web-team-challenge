@@ -27,10 +27,13 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   })
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData')
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData))
+    if(localStorage) {
+      const storedUserData = localStorage?.getItem('userData')
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData))
+      }
     }
+   
   }, [userData])
 
   const handleSubmit = () => {
