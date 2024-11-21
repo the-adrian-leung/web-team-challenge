@@ -9,11 +9,11 @@ import {
   ModalFooter,
 } from '@chakra-ui/modal'
 import { Toaster, toaster } from "./toaster"
-import { Button } from './button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormControl, FormLabel } from '@chakra-ui/form-control'
-import { Input } from '@chakra-ui/react'
+import { Button, Input } from '@chakra-ui/react'
 import * as React from "react"
+import { redirect } from 'next/navigation'
 
 interface UserData {
   username: string;
@@ -26,6 +26,9 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     jobTitle: ''
   })
 
+  useEffect(() => {
+  }, [userData])
+
   const handleSubmit = () => {
     if (!userData.username || !userData.jobTitle) {
       toaster.create({
@@ -34,9 +37,10 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
       })
       return
     }
-
     localStorage.setItem('userData', JSON.stringify(userData))
+    setUserData(userData)
     onClose()
+    redirect('/information')
   }
 
   return (

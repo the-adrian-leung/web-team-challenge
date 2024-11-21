@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { useQuery, gql } from '@apollo/client'
-// import { useState } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, redirect } from 'next/navigation'
 import AuthModal from '../components/ui/auth-modal'
 import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -28,13 +26,13 @@ const GET_CHARACTERS = gql`
 
 export default function InformationPage() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const page = parseInt(searchParams.get('page') || '1')
   const { onClose } = useDisclosure()
   const [userData, setUserData] = useState(null);
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { page }
+    variables: { page },
+    skip: !localStorage.getItem('userData')
   })
 
   useEffect(() => {
@@ -44,15 +42,11 @@ export default function InformationPage() {
     }
   }, [data, userData])
 
-  console.log('userData', userData)
-  console.log('error', error)
-  console.log('data', data)
-
   const handlePageChange = (newPage: number) => {
-    router.push(`/information?page=${newPage}`)
+    redirect(`information?page=${newPage < 1 ? 1 : newPage}`)
   }
 
-  if (!userData) {
+  if (!localStorage.getItem('userData')) {
     return <AuthModal isOpen={true} onClose={onClose} />
   }
 
@@ -78,14 +72,15 @@ export default function InformationPage() {
         ))}
       </Grid>
       
-      <Box mt={4}>
-        <Button
+      <Box mt={4} display={'block'} paddingBottom={'50px'}>
+        <Button float={'left'}
           disabled={page === 1}
           onClick={() => handlePageChange(page - 1)}
         >
           Previous
         </Button>
         <Button
+          float={'right'}
           ml={2}
           onClick={() => handlePageChange(page + 1)}
           disabled={page === data?.characters.info.pages}

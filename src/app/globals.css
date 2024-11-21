@@ -19,3 +19,23 @@ body {
   background: var(--background);
   font-family: var(--font-PJS-Normal), Helvetica, sans-serif;
 }
+
+h1 {
+  font-size: 2rem;
+}
+
+a {
+  width: 100%;
+  display: block;
+}
+
+button {
+  color: var(--background);
+  background: var(--foreground);
+  padding: 5px 20px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  font-family: var(--font-PJS-Bold);
+  font-weight: bold;
+}
