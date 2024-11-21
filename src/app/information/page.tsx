@@ -32,18 +32,18 @@ export default function InformationPage() {
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: { page },
-    skip: !localStorage.getItem('userData')
+    skip: !userData
   })
 
-  useEffect(() => {
-    const storedUserData = localStorage.getItem('userData')
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData))
+  useEffect(() => {    
+    if (!userData) {
+      const storedUserData = localStorage.getItem('userData')
+      if(storedUserData) setUserData(JSON.parse(storedUserData))
     }
-  }, [data, userData])
+  }, [userData])
 
   const handlePageChange = (newPage: number) => {
-    redirect(`information?page=${newPage < 1 ? 1 : newPage}`)
+    redirect(`/information?page=${newPage < 1 ? 1 : newPage}`)
   }
 
   if (!localStorage.getItem('userData')) {
