@@ -14,13 +14,9 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control'
 import { Button, Input } from '@chakra-ui/react'
 import * as React from "react"
 import { redirect } from 'next/navigation'
+import { UserData } from './user-data'
 
-interface UserData {
-  username: string;
-  jobTitle: string;
-}
-
-const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const UserModal = ({ isOpen, onClose, isUpdate = false }: { isOpen: boolean; onClose: () => void, isUpdate?: boolean }) => {
   const [userData, setUserData] = useState<UserData>({
     username: '',
     jobTitle: ''
@@ -33,7 +29,6 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
         setUserData(JSON.parse(storedUserData))
       }
     }
-   
   }, [userData])
 
   const handleSubmit = () => {
@@ -47,34 +42,34 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     localStorage.setItem('userData', JSON.stringify(userData))
     setUserData(userData)
     onClose()
-    redirect('/information')
+    redirect('/information?page=1')
   }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Enter Your Information</ModalHeader>
+      <ModalContent className='profile'>
+        <ModalHeader>{isUpdate ? 'Update Your Information' : 'Enter Your Information'}</ModalHeader>
         <ModalBody>
           <FormControl>
-            <FormLabel>Username</FormLabel>
+            <FormLabel className='profileLabel'>Username</FormLabel>
             <Input 
               value={userData.username}
-              onChange={(e) => setUserData({...userData, username: e.target.value})}
+              onChange={(e) => setUserData({ ...userData, username: e.target.value })}
             />
           </FormControl>
           <FormControl mt={4}>
-            <FormLabel>Job Title</FormLabel>
+            <FormLabel className='profileLabel'>Job Title</FormLabel>
             <Input
               value={userData.jobTitle}
-              onChange={(e) => setUserData({...userData, jobTitle: e.target.value})}
+              onChange={(e) => setUserData({ ...userData, jobTitle: e.target.value })}
             />
           </FormControl>
           <Toaster />
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" onClick={handleSubmit}>
-            Submit
+          <Button onClick={handleSubmit}>
+            {isUpdate ? 'Update' : 'Submit'}
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -82,4 +77,4 @@ const AuthModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   )
 }
 
-export default AuthModal;
+export default UserModal;

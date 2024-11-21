@@ -44,20 +44,43 @@ img {
   margin: 0 auto;
 }
 
-h3 {
+.userInfo {
   margin-bottom: 10px;
   font-family: var(--font-PJS-Bold);
   font-weight: bold;
 }
 
-.modal {
+.profileIcon {
+  float: right;
+  width: 30px;
+  margin-top: 5px;
+}
+
+.modal, .profile {
   color: var(--background);
   background: var(--foreground);
 }
 
-.modalHeader {
+.profileTitle, .modalHeader {
   font-family: var(--font-PJS-Bold);
   font-weight: bold;
+}
+
+.profileLabel {
+  width: 240px;
+  display: block;
+  margin: 0 auto;
+}
+
+.profileTitle {
+  text-align: left;
+  font-size: 1.1rem;
+  width: 240px;
+  display: block;
+  margin: 0 auto;
+}
+
+.modalHeader {
   text-align: center;
   font-size: 2rem;
 }
@@ -74,4 +97,12 @@ h3 {
   display: block;
   margin: 0 auto;
   font-size: 1.2rem;
+}
+
+input {
+  border: #000000 1px solid;
+  display: block;
+  margin: 0 auto;
+  padding: 1px;
+  width: 240px;
 }

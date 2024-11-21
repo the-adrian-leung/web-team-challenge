@@ -2,11 +2,12 @@
 
 import { useQuery, gql } from '@apollo/client'
 import { useSearchParams, redirect } from 'next/navigation'
-import AuthModal from '../components/ui/auth-modal'
 import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import CharacterModal from '../components/ui/character-modal'
-import { Character } from '../Character'
+import { Character } from '../components/ui/character'
+import { FaUserEdit } from "react-icons/fa";
+import UserModal from '../components/ui/user-modal'
 
 const GET_CHARACTERS = gql`
   query GetCharacters($page: Int!) {
@@ -37,7 +38,9 @@ const InformationPage = () => {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '1')
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
-  const { open, onOpen, onClose } = useDisclosure()
+  const { open: isCharacterModalOpen, onOpen: onCharacterModalOpen, onClose: onCharacterModalClose } = useDisclosure()
+  const { open: isUserModalOpen, onOpen: onUserModalOpen, onClose: onUserModalClose } = useDisclosure()
+
   interface UserData {
     username: string;
     jobTitle: string;
@@ -63,11 +66,11 @@ const InformationPage = () => {
 
   const handleCharacterClick = (character: Character) => {
     setSelectedCharacter(character)
-    onOpen()
+    onCharacterModalOpen()
   }
 
   if (!userData) {
-    return <AuthModal isOpen={true} onClose={onClose} />
+    return <UserModal isOpen={true} onClose={onUserModalClose} />
   }
 
   if (loading) return <Text>Loading...</Text>
@@ -75,7 +78,12 @@ const InformationPage = () => {
 
   return (
     <Box p={4}>
-      <Box as='h3'>Welcome back, {userData?.username} ({userData?.jobTitle})</Box>
+      <Box className='userInfo'>
+        Welcome back, {userData?.username} ({userData?.jobTitle})
+        <FaUserEdit className='profileIcon' onClick={()=>{
+          onUserModalOpen()
+        }} />
+      </Box>
       <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
         {data?.characters.results.map((character: Character) => (
           <Box 
@@ -114,8 +122,14 @@ const InformationPage = () => {
 
       <CharacterModal
         character={selectedCharacter}
-        isOpen={open}
-        onClose={onClose}
+        isOpen={isCharacterModalOpen}
+        onClose={onCharacterModalClose}
+      />
+
+      <UserModal
+        isOpen={isUserModalOpen}
+        onClose={onUserModalClose}
+        isUpdate={true}
       />
     </Box>
   )

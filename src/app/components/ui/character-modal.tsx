@@ -1,6 +1,6 @@
 'use client'
 
-import { Character } from '@/app/Character'
+import { Character } from '@/app/components/ui/character'
 import {
   Modal,
   ModalOverlay,
