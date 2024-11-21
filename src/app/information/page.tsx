@@ -32,7 +32,6 @@ export default function InformationPage() {
   const page = parseInt(searchParams.get('page') || '1')
   const { onClose } = useDisclosure()
   const [userData, setUserData] = useState(null);
-  const [pageData, setPageData] = useState(null);
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: { page }
@@ -43,7 +42,7 @@ export default function InformationPage() {
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData))
     }
-  }, [data])
+  }, [data, userData])
 
   console.log('userData', userData)
   console.log('error', error)
