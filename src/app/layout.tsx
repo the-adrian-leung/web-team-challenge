@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+import type { Metadata } from "next"
+import localFont from "next/font/local"
 import { Providers } from "./providers"
-import "./globals.css";
+// import { Provider } from "./components/ui/provider"
 import { Footer } from "./footer"
+import "./globals.css"
 
 const geistSans = localFont({
   src: "./fonts/PlusJakartaSans-Regular.ttf",
@@ -26,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
