@@ -28,7 +28,12 @@ export default function InformationPage() {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '1')
   const { onClose } = useDisclosure()
-  const [userData, setUserData] = useState(null);
+  interface UserData {
+    username: string;
+    jobTitle: string;
+  }
+
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: { page },
@@ -55,6 +60,7 @@ export default function InformationPage() {
 
   return (
     <Box p={4}>
+      <Box as='h3'>Welcome back, {userData?.username} ({userData?.jobTitle})</Box>
       <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
         {data?.characters.results.map((character: { id: string; name: string; image: string; species: string; status: string }) => (
           <Box 
