@@ -66,7 +66,7 @@ const UserModal = ({ isOpen, onClose, isUpdate = false }: { isOpen: boolean; onC
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent className='profile'>
-        <ModalHeader>{isUpdate ? 'Update Your Information' : 'Enter Your Information'}</ModalHeader>
+        <ModalHeader className='profileTitle'>{isUpdate ? 'Update Your Information' : 'Enter Your Information'}</ModalHeader>
         <ModalBody>
           <FormControl>
             <FormLabel className='profileLabel'>Username</FormLabel>
