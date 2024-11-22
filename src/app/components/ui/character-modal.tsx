@@ -48,7 +48,7 @@ const CharacterModal = ({ character, isOpen, onClose }: CharacterModalProps) => 
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" onClick={onClose}>
+          <Button onClick={onClose}>
             Close
           </Button>
         </ModalFooter>

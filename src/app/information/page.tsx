@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery, gql } from '@apollo/client'
-import { useSearchParams, redirect } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import CharacterModal from '../components/ui/character-modal'
 import { Character } from '../components/ui/character'
 // import { FaUserEdit } from "react-icons/fa";
@@ -60,8 +60,9 @@ const InformationPage = () => {
     }
   }, [userData])
 
-  const handlePageChange = (newPage: number) => {
-    redirect(`/information?page=${newPage < 1 ? 1 : newPage}`)
+  const handlePageChange = (e: FormEvent, newPage: number) => {
+    e.preventDefault()
+    window.history.pushState(null, '', `?page=${newPage < 1 ? 1 : newPage}`) // Fixed the NextJS 15 useRouter issue with the page not redirecting
   }
 
   const handleCharacterClick = (character: Character) => {
@@ -106,14 +107,14 @@ const InformationPage = () => {
       <Box mt={4} display={'block'} paddingBottom={'50px'}>
         <Button float={'left'}
           disabled={page === 1}
-          onClick={() => handlePageChange(page - 1)}
+          onClick={(e) => handlePageChange(e, page - 1)}
         >
           Previous
         </Button>
         <Button
           float={'right'}
           ml={2}
-          onClick={() => handlePageChange(page + 1)}
+          onClick={(e) => handlePageChange(e, page + 1)}
           disabled={page === data?.characters.info.pages}
         >
           Next
