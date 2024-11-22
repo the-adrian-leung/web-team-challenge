@@ -22,6 +22,17 @@ export const metadata: Metadata = {
   description: "Created by Adrian Leung",
 };
 
+/**
+ * RootLayout component
+ * 
+ * This component serves as the root layout for the application.
+ * It includes the Providers component for context providers, a Suspense fallback for lazy-loaded components,
+ * and a Footer component.
+ * 
+ * @param {object} props - The props for the RootLayout component.
+ * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The rendered RootLayout component.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

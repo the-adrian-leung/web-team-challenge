@@ -6,9 +6,11 @@ import { Box, Button, Grid, useDisclosure, Text, Image } from '@chakra-ui/react'
 import { FormEvent, useEffect, useState } from 'react'
 import CharacterModal from '../components/ui/character-modal'
 import { Character } from '../components/ui/character'
-// import { FaUserEdit } from "react-icons/fa";
 import UserModal from '../components/ui/user-modal'
 
+/**
+ * GraphQL query to fetch characters with pagination
+ */
 const GET_CHARACTERS = gql`
   query GetCharacters($page: Int!) {
     characters(page: $page) {
@@ -34,6 +36,14 @@ const GET_CHARACTERS = gql`
   }
 `
 
+/**
+ * InformationPage component
+ * 
+ * This component renders a page that displays a list of characters from the Rick and Morty GraphQL API.
+ * It includes pagination and modals for user information and character details.
+ * 
+ * @returns {JSX.Element} The rendered InformationPage component.
+ */
 const InformationPage = () => {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '1')
@@ -53,6 +63,7 @@ const InformationPage = () => {
     skip: !userData
   })
 
+  // Load user data from local storage when the component mounts
   useEffect(() => {    
     if (localStorage && !userData) {
       const storedUserData = localStorage?.getItem('userData')
@@ -60,11 +71,26 @@ const InformationPage = () => {
     }
   }, [userData])
 
+  /**
+   * Handle page change
+   * 
+   * This function updates the URL with the new page number and navigates to the new page.
+   * It addresses the Next.js 15 useRouter issue with page redirection.
+   * 
+   * @param {number} newPage - The new page number to navigate to.
+   */
   const handlePageChange = (e: FormEvent, newPage: number) => {
     e.preventDefault()
     window.history.pushState(null, '', `?page=${newPage < 1 ? 1 : newPage}`) // Fixed the NextJS 15 useRouter issue with the page not redirecting
   }
 
+  /**
+   * Handle character click
+   * 
+   * This function sets the selected character and opens the character modal.
+   * 
+   * @param {Character} character - The character object to display in the modal.
+   */
   const handleCharacterClick = (character: Character) => {
     setSelectedCharacter(character)
     onCharacterModalOpen()

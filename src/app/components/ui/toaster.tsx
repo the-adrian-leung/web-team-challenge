@@ -9,11 +9,26 @@ import {
   createToaster,
 } from "@chakra-ui/react"
 
+/**
+ * Toaster component
+ * 
+ * This component provides a convenient way to display toast notifications.
+ * It uses Chakra UI's `useToast` hook to show notifications.
+ * 
+ * @param {string} title - The title of the toast notification.
+ * @param {string} description - The description of the toast notification.
+ * @param {string} status - The status of the toast notification (e.g., "success", "error", "warning", "info").
+ */
 export const toaster = createToaster({
   placement: "bottom-end",
   pauseOnPageIdle: true,
 })
 
+/**
+ * Show a toast notification
+ * 
+ * This function displays a toast notification with the provided title, description, and status.
+ */
 export const Toaster = () => {
   return (
     <Portal>

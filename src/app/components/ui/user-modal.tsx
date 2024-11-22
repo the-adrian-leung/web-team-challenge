@@ -1,3 +1,4 @@
+// src/components/UserModal.tsx
 'use client'
 
 import {
@@ -16,11 +17,22 @@ import * as React from "react"
 import { useRouter } from 'next/navigation'
 import { UserData } from './user-data'
 
+/**
+ * UserModal component
+ * 
+ * This component renders a modal that prompts the user to enter their username and job title.
+ * The user data is stored in local storage and used to personalize the application.
+ * 
+ * @param {boolean} isOpen - Determines if the modal is open.
+ * @param {function} onClose - Function to close the modal.
+ * @param {boolean} [isUpdate=false] - Determines if the modal is for updating user information.
+ */
 const UserModal = ({ isOpen, onClose, isUpdate = false }: { isOpen: boolean; onClose: () => void, isUpdate?: boolean }) => {
   const [userData, setUserData] = useState<UserData>({ username: '', jobTitle: '' })
 
   const router = useRouter()
 
+  // Load user data from local storage when the component mounts  
   useEffect(() => {
     if(localStorage && !userData.username && !userData.jobTitle) { // Fixed the Max depth exceeded error
       const storedUserData = localStorage?.getItem('userData')
@@ -28,6 +40,12 @@ const UserModal = ({ isOpen, onClose, isUpdate = false }: { isOpen: boolean; onC
     }
   }, [userData])
 
+   /**
+   * Handle form submission
+   * 
+   * This function validates the user input and stores the user data in local storage.
+   * If the input is valid, it closes the modal and redirects to the information page if not updating.
+   */
   const handleSubmit = () => {
     console.log('handleSubmit', userData)
     if (!userData.username || !userData.jobTitle) {

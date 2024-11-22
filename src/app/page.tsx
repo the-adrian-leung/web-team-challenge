@@ -2,6 +2,14 @@ import { Box, Button, Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+/**
+ * App component
+ * 
+ * This component renders the home page of the Rick and Morty Wiki application.
+ * It includes a heading, an image, and a link to the Information Page.
+ * 
+ * @returns {JSX.Element} The rendered App component.
+ */
 const App = () => {
   return (
     <Box className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">

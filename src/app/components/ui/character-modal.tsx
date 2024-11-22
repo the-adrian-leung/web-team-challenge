@@ -17,12 +17,36 @@ import {
   Box,
 } from '@chakra-ui/react'
 
+/**
+ * CharacterModalProps interface
+ * 
+ * This interface defines the props for the CharacterModal component.
+ */
 interface CharacterModalProps {
+  /**
+   * The character object containing details to be displayed in the modal.
+   */
   character: Character | null
+
+  /**
+   * Determines if the modal is open.
+   */
   isOpen: boolean
+
+  /**
+   * Function to close the modal.
+   */
   onClose: () => void
 }
 
+/**
+ * CharacterModal component
+ * 
+ * This component renders a modal that displays detailed information about a character.
+ * 
+ * @param {CharacterModalProps} props - The props for the CharacterModal component.
+ * @returns {JSX.Element | null} The rendered modal component or null if no character is provided.
+ */
 const CharacterModal = ({ character, isOpen, onClose }: CharacterModalProps) => {
   if (!character) return null
 
