@@ -8,8 +8,8 @@ First, clone the repository and install the dependencies:
 
 ```bash
 git clone git@github.com:the-adrian-leung/web-team-challenge.git
-cd rick-and-morty-app
-yarn install
+cd web-team-challenge
+yarn
 ```
 
 First, run the development server:
