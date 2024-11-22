@@ -22,15 +22,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans), a font family designed by Tokotype.
 
 ## Project Structure
-- src/app: Contains the main application components and pages.
-- src/components: Contains reusable UI components such as CharacterModal, UserModal, and Footer.
-- src/app/providers.tsx: Configures the context providers including Chakra UI, ThemeProvider, and Apollo Client.
-- src/app/layout.tsx: Defines the root layout of the application.
-- src/app/information/page.tsx: The Information Page that displays a list of characters with pagination and modals.
-- src/app/user-info/page.tsx: The User Info Page that collects user information before accessing the Information Page.
+- `src/app`: Contains the main application components and pages.
+- `src/components/ui`: Contains reusable UI components such as CharacterModal, UserModal, and Footer.
+- `src/app/providers.tsx`: Configures the context providers including Chakra UI, ThemeProvider, and Apollo Client.
+- `src/app/layout.tsx`: Defines the root layout of the application.
+- `src/app/information/page.tsx`: The Information Page that displays a list of characters with pagination and modals.
+- `src/app/user-modal.tsx`: The User Modal that collects user information before accessing the Information Page.
+- `src/app/page.tsx`: The Home Page of the Rick and Morty Wiki web app.
 
 ## Features
 - Responsive Design: The application is responsive and works on both mobile and desktop devices.
